@@ -42,13 +42,7 @@
                             <tfoot>
                                 <tr>
                                     <th colspan="3" class="text-end">Total:</th>
-                                    @php
-                                    $total = 0;
-                                    foreach($order->orderDetails as $detail) {
-                                        $total += $detail->price * $detail->quantity;
-                                    }
-                                     @endphp
-                                    <th>Rp {{ number_format($total, 0, ',', '.') }}</th>
+                                    <th>Rp {{ number_format($order->total, 0, ',', '.') }}</th>
                                 </tr>
                             </tfoot>
                         </table>
@@ -79,7 +73,7 @@
 
         <div class="col-md-4">
             <!-- Order Status -->
-            <div class="card">
+            <div class="card mb-4">
                 <div class="card-header">
                     <h5 class="mb-0">Status Pesanan</h5>
                 </div>
@@ -97,6 +91,20 @@
                                 <option value="cancelled" {{ $order->status === 'cancelled' ? 'selected' : '' }}>Cancelled</option>
                             </select>
                         </div>
+                        <button type="submit" class="btn btn-primary">Update Status Pesanan</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Payment Status -->
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">Status Pembayaran</h5>
+                </div>
+                <div class="card-body">
+                    <form action="{{ route('admin.orders.update-payment-status', $order) }}" method="POST">
+                        @csrf
+                        @method('PATCH')
                         <div class="mb-3">
                             <label for="payment_status" class="form-label">Status Pembayaran</label>
                             <select name="payment_status" id="payment_status" class="form-select">
@@ -105,7 +113,7 @@
                                 <option value="failed" {{ $order->payment_status === 'failed' ? 'selected' : '' }}>Failed</option>
                             </select>
                         </div>
-                        <button type="submit" class="btn btn-primary">Update Status</button>
+                        <button type="submit" class="btn btn-primary">Update Status Pembayaran</button>
                     </form>
                 </div>
             </div>

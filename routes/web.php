@@ -13,7 +13,7 @@ use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\OrderController as AdminOrderController;
 use App\Http\Controllers\Admin\ProductController as AdminProductController;
-use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\CustomerController as AdminCustomerController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController as PublicProductController;
@@ -22,6 +22,7 @@ use App\Http\Controllers\OrderController as PublicOrderController;
 use App\Http\Controllers\Admin\ProductManagementController;
 use App\Http\Controllers\Admin\OrderManagementController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\CustomerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -87,11 +88,9 @@ Route::group(['middleware' => ['auth', 'admin'], 'prefix' => 'admin', 'as' => 'a
     Route::get('/orders', [OrderManagementController::class, 'index'])->name('orders.index');
     Route::get('/orders/{order}', [OrderManagementController::class, 'show'])->name('orders.show');
     Route::patch('/orders/{order}/status', [OrderManagementController::class, 'updateStatus'])->name('orders.update-status');
+    Route::patch('/orders/{order}/payment-status', [OrderManagementController::class, 'updatePaymentStatus'])->name('orders.update-payment-status');
     Route::delete('/orders/{order}', [OrderManagementController::class, 'destroy'])->name('orders.destroy');
-    Route::resource('categories', 'Admin\CategoryController');
-    Route::resource('products', 'Admin\ProductManagementController');
-    Route::resource('orders', 'Admin\OrderController');
+    Route::resource('categories', AdminCategoryController::class);
+    Route::resource('products', ProductManagementController::class);
     Route::resource('customers', 'Admin\CustomerController')->only(['index', 'show']);
-    Route::patch('/orders/{order}/status', [OrderManagementController::class, 'updateStatus'])->name('orders.update-status');
-    Route::delete('/orders/{order}', [OrderManagementController::class, 'destroy'])->name('orders.destroy');
 });
