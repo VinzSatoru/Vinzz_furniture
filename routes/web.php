@@ -90,7 +90,7 @@ Route::group(['middleware' => ['auth', 'admin'], 'prefix' => 'admin', 'as' => 'a
     Route::patch('/orders/{order}/status', [OrderManagementController::class, 'updateStatus'])->name('orders.update-status');
     Route::patch('/orders/{order}/payment-status', [OrderManagementController::class, 'updatePaymentStatus'])->name('orders.update-payment-status');
     Route::delete('/orders/{order}', [OrderManagementController::class, 'destroy'])->name('orders.destroy');
-    Route::resource('categories', AdminCategoryController::class);
-    Route::resource('products', ProductManagementController::class);
+    Route::resource('categories', 'Admin\CategoryController'::class);
+    Route::resource('products', 'Admin\ProductManagementController'::class);
     Route::resource('customers', 'Admin\CustomerController')->only(['index', 'show']);
 });
