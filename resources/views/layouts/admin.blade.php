@@ -274,6 +274,14 @@
         </div>
     @endif
 
+    @if(session('info'))
+        <div class="container mt-3">
+            <div class="alert alert-info">
+                {{ session('info') }}
+            </div>
+        </div>
+    @endif
+
     <!-- Page Content -->
     <main>
         @yield('content')

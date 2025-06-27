@@ -27,10 +27,10 @@ class RedirectIfAuthenticated
                 $user = Auth::guard($guard)->user();
                 
                 if ($user && $user->isAdmin()) {
-                    return redirect()->route('admin.dashboard');
+                    return redirect()->route('admin.dashboard')->with('info', 'Anda sudah login sebagai admin.');
                 }
                 
-                return redirect(RouteServiceProvider::HOME);
+                return redirect()->route('home')->with('info', 'Anda sudah login.');
             }
         }
 

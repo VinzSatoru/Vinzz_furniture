@@ -65,5 +65,6 @@ class Kernel extends HttpKernel
         'role' => \App\Http\Middleware\CheckRole::class,
         'admin' => \App\Http\Middleware\AdminMiddleware::class,
         'customer' => \App\Http\Middleware\CustomerMiddleware::class,
+        'prevent.back.login' => \App\Http\Middleware\PreventBackToLogin::class,
     ];
 }

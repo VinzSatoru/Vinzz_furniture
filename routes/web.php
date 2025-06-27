@@ -49,7 +49,7 @@ Route::get('/products/{product}', [PublicProductController::class, 'show'])->nam
 Route::get('/categories/{category}', [PublicCategoryController::class, 'show'])->name('categories.show');
 
 // Guest routes
-Route::middleware('guest')->group(function () {
+Route::middleware(['guest', 'prevent.back.login'])->group(function () {
     Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
     Route::post('/login', [AuthController::class, 'login']);
     Route::get('/register', [AuthController::class, 'showRegistrationForm'])->name('register');
@@ -90,6 +90,7 @@ Route::group(['middleware' => ['auth', 'admin'], 'prefix' => 'admin', 'as' => 'a
     Route::patch('/orders/{order}/status', [OrderManagementController::class, 'updateStatus'])->name('orders.update-status');
     Route::patch('/orders/{order}/payment-status', [OrderManagementController::class, 'updatePaymentStatus'])->name('orders.update-payment-status');
     Route::delete('/orders/{order}', [OrderManagementController::class, 'destroy'])->name('orders.destroy');
+    //Disini saya ternyata menemukan cara lebih simple yaitu menggunakan "Resource"
     Route::resource('categories', 'Admin\CategoryController'::class);
     Route::resource('products', 'Admin\ProductManagementController'::class);
     Route::resource('customers', 'Admin\CustomerController')->only(['index', 'show']);
